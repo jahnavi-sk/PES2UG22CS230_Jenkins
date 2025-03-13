@@ -5,29 +5,20 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Starting Build Stage'
-                sh 'g++ main/hello.cpp -o hello'  // Updated path to hello.cpp
-                echo 'Build Stage Successful'
+                sh 'g++ main/hello.cpp -o hello -invalidflag' 
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running Tests'
-                sh './hello'
-                echo 'Test Stage Successful'
-            }
-            post {
-                always {
-                    echo 'Test execution completed'
-                }
+                sh 'exit 1' 
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying Application'
-                sh 'echo Deploying hello.cpp output'
-                echo 'Deployment Successful'
+                sh 'cat nonexistent_file.txt' 
             }
         }
     }
